@@ -18,11 +18,12 @@ body {
    --Grayish-blue: hsl(220, 14%, 75%);
    --Light-grayish-blue: hsl(223, 64%, 98%);
    --White: hsl(0, 0%, 100%);
-   --Black/*(with 75% opacity for lightbox background)*/: hsl(0, 0%, 0%);
+   --Black: hsl(0, 0%, 0%);
 }
 
 .header {
    /* padding-bottom: 2rem; */
+   height: 5rem;
    display: flex;
    align-items: center;
    column-gap: 3rem;
@@ -43,10 +44,11 @@ body {
 }
 
 .header .navbar ul li {
-   padding: 2rem 0;
+   height: 5rem;
    color: var(--Dark-grayish-blue);
-
-   transition: 0.1s;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .header .navbar .header-imgs {
@@ -54,6 +56,82 @@ body {
    align-items: center;
    justify-content: center;
    column-gap: 2rem;
+}
+
+.header .navbar .header-imgs > div {
+   position: relative;
+}
+
+.header .navbar .header-imgs > div .cart-items-number {
+   width: 1.05rem;
+   height: 0.75rem;
+   background-color: var(--Orange);
+   color: var(--White);
+   border-radius: 1rem;
+   font-size: 0.6rem;
+   display: none;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   top: -0.2rem;
+   left: 0.6rem;
+}
+
+.header .navbar .header-imgs > div .cart-items-number.added {
+   display: flex;
+}
+
+.header .navbar .header-imgs > div .cart-checkout {
+   width: 20.5rem;
+   background-color: var(--White);
+   border-radius: 0.5rem;
+   box-shadow: 0.3rem 0.3rem 1rem rgb(212, 212, 212, 0.3),
+      -0.3rem -0rem 1rem rgb(212, 212, 212, 0.3);
+   position: absolute;
+   top: 2.5rem;
+   left: -11rem;
+   display: none;
+}
+
+.header .navbar .header-imgs > div .cart-checkout.active {
+   display: block;
+}
+
+.header .navbar .header-imgs > div .cart-checkout > p {
+   padding: 1rem;
+   font-weight: 700;
+   border-bottom: 0.1rem solid var(--Light-grayish-blue);
+}
+
+.header .navbar .header-imgs > div .cart-checkout > div {
+   padding: 1rem;
+   display: flex;
+   align-items: center;
+   column-gap: 0.5rem;
+}
+
+.header .navbar .header-imgs > div .cart-checkout > div > img:first-child {
+   width: 3rem;
+}
+
+.header .navbar .header-imgs > div .cart-checkout > div > p {
+   color: var(--Dark-grayish-blue);
+}
+
+.header .navbar .header-imgs > div .cart-checkout > div > p > span:last-child {
+   font-weight: 700;
+   color: var(--Black);
+}
+
+.header .navbar .header-imgs > div .cart-checkout > button {
+   width: calc(100% - 2rem);
+   padding: 1rem;
+   margin: 0 1rem 1.5rem;
+   background-color: var(--Orange);
+   color: var(--White);
+   font-weight: 700;
+   border: none;
+   border-radius: 0.5rem;
 }
 
 .header .navbar .avatar {
@@ -89,9 +167,22 @@ body {
    column-gap: 1.5rem;
 }
 
-.container .images .small-images > img {
+.container .images .small-images > div.active {
+   border: 0.2rem solid var(--Orange);
+   border-radius: 0.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.container .images .small-images > div > img {
    width: 5rem;
    border-radius: 0.5rem;
+}
+
+.container .images .small-images > div.active > img {
+   opacity: 0.5;
+   border-radius: 0;
 }
 
 .container .text {
@@ -106,7 +197,8 @@ body {
 }
 
 .container .text h1 {
-   font-size: 2.5rem;
+   width: 90%;
+   font-size: 2.2rem;
    font-weight: 700;
    color: (var(--Black));
    margin-bottom: 1.5rem;
@@ -148,20 +240,23 @@ body {
 }
 
 .container .text .add-items > div {
-   padding: 1rem;
+   width: 9rem;
+   padding: 0.8rem 1rem;
    background-color: var(--Light-grayish-blue);
+   border-radius: 0.5rem;
    display: flex;
    align-items: center;
    column-gap: 2rem;
 }
 
 .container .text .add-items > div > p {
+   width: 1rem;
    font-weight: 700;
 }
 
 .container .text .add-items button {
    width: 13rem;
-   padding: 0.5rem 0;
+   padding: 0.8rem 0;
    font-weight: 700;
    border: none;
    border-radius: 0.5rem;
@@ -179,8 +274,8 @@ body {
 
 @media (hover: hover) {
    .header .navbar ul li:hover,
-   .header .navbar .header-imgs > img:hover,
-   .container .images .small-images > img:hover,
+   .header .navbar .header-imgs > div > img:hover,
+   .container .images .small-images > div > img:hover,
    .container .text .add-items > div > img:hover,
    .container .text .add-items button:hover {
       cursor: pointer;
@@ -195,5 +290,11 @@ body {
       cursor: pointer;
       border: 0.15rem solid var(--Orange);
       border-radius: 50%;
+   }
+
+   .container .images .small-images > div > img:hover,
+   .container .text .add-items button:hover,
+   .container .add-items > div > img:hover {
+      opacity: 0.5;
    }
 }
