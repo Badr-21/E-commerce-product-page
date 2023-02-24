@@ -103,27 +103,40 @@ body {
    border-bottom: 0.1rem solid var(--Light-grayish-blue);
 }
 
-.header .navbar .header-imgs > div .cart-checkout > div {
+.header .navbar .header-imgs > div .cart-checkout .empty {
+   height: 10rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: var(--Dark-grayish-blue);
+   font-weight: 700;
+}
+
+.header .navbar .header-imgs > div .cart-checkout .not-empty {
+   display: none;
+}
+
+.header .navbar .header-imgs > div .cart-checkout .not-empty > div {
    padding: 1rem;
    display: flex;
    align-items: center;
    column-gap: 0.5rem;
 }
 
-.header .navbar .header-imgs > div .cart-checkout > div > img:first-child {
+.header .navbar .header-imgs > div .cart-checkout .not-empty > div > img:first-child {
    width: 3rem;
 }
 
-.header .navbar .header-imgs > div .cart-checkout > div > p {
+.header .navbar .header-imgs > div .cart-checkout .not-empty > div > p {
    color: var(--Dark-grayish-blue);
 }
 
-.header .navbar .header-imgs > div .cart-checkout > div > p > span:last-child {
+.header .navbar .header-imgs > div .cart-checkout .not-empty > div > p > span:last-child {
    font-weight: 700;
    color: var(--Black);
 }
 
-.header .navbar .header-imgs > div .cart-checkout > button {
+.header .navbar .header-imgs > div .cart-checkout .not-empty > button {
    width: calc(100% - 2rem);
    padding: 1rem;
    margin: 0 1rem 1.5rem;
@@ -277,7 +290,8 @@ body {
    .header .navbar .header-imgs > div > img:hover,
    .container .images .small-images > div > img:hover,
    .container .text .add-items > div > img:hover,
-   .container .text .add-items button:hover {
+   .container .text .add-items button:hover,
+   .header .navbar .header-imgs > div .cart-checkout .not-empty > div .delete {
       cursor: pointer;
    }
 
