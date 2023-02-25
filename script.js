@@ -66,6 +66,8 @@ const popUpImages = Array.from(document.querySelectorAll(".pop-up-images > img")
 const previousIcon = document.querySelector(".previous");
 const nextIcon = document.querySelector(".next");
 const closeIcon = document.querySelector(".close");
+const popUpSmallImages = Array.from(document.querySelectorAll(".pop-up-small-images > div"));
+console.log(popUpSmallImages);
 
 bigImage.addEventListener("click", () => {
    popUpDiv.style.display = "flex";
@@ -124,9 +126,16 @@ nextIcon.addEventListener("click", () => {
    popUpImages.forEach((popUpImage) => {
       if (popUpImage.classList.contains("active")) {
          popUpImage.classList.remove("active");
+         popUpSmallImages.forEach((popUpSmallImage) => {
+            if (popUpSmallImage.classList.contains("active")) {
+               popUpSmallImage.classList.remove("active");
+            }
+         });
       }
    });
    popUpImages[currentImage + 1].classList.add("active");
+   popUpSmallImages[currentImage + 1].classList.add("active");
+
    theChecker();
    noDrop();
 });
@@ -135,9 +144,15 @@ previousIcon.addEventListener("click", () => {
    popUpImages.forEach((popUpImage) => {
       if (popUpImage.classList.contains("active")) {
          popUpImage.classList.remove("active");
+         popUpSmallImages.forEach((popUpSmallImage) => {
+            if (popUpSmallImage.classList.contains("active")) {
+               popUpSmallImage.classList.remove("active");
+            }
+         });
       }
    });
    popUpImages[currentImage - 1].classList.add("active");
+   popUpSmallImages[currentImage - 1].classList.add("active");
    theChecker();
    noDrop();
 });
