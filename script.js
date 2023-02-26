@@ -67,7 +67,6 @@ const previousIcon = document.querySelector(".previous");
 const nextIcon = document.querySelector(".next");
 const closeIcon = document.querySelector(".close");
 const popUpSmallImages = Array.from(document.querySelectorAll(".pop-up-small-images > div"));
-console.log(popUpSmallImages);
 
 bigImage.addEventListener("click", () => {
    popUpDiv.style.display = "flex";
@@ -155,4 +154,17 @@ previousIcon.addEventListener("click", () => {
    popUpSmallImages[currentImage - 1].classList.add("active");
    theChecker();
    noDrop();
+});
+
+//responsive
+const iconCloseSideBar = document.querySelector(".close-menu");
+const iconMenuSideBar = document.querySelector(".menu");
+const sideBar = document.querySelector(".sidebar");
+
+iconMenuSideBar.addEventListener("click", () => {
+   sideBar.style.left = "0";
+});
+
+iconCloseSideBar.addEventListener("click", () => {
+   sideBar.style.left = "-15rem";
 });
