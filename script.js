@@ -50,6 +50,7 @@ deleteIcon.addEventListener("click", () => {
 
 const bigImage = document.querySelector(".big-image");
 const smallImages = document.querySelectorAll(".small-images > div");
+const isMobile = window.matchMedia("(max-width: 475px)");
 
 Array.from(smallImages).forEach((smallImage) => {
    smallImage.addEventListener("click", () => {
@@ -69,9 +70,13 @@ const closeIcon = document.querySelector(".close");
 const popUpSmallImages = Array.from(document.querySelectorAll(".pop-up-small-images > div"));
 
 bigImage.addEventListener("click", () => {
-   popUpDiv.style.display = "flex";
-   bigImage.style.cursor = "no-drop";
-   bigImage.style.pointerEvents = "none";
+   if (isMobile.matches) {
+      return;
+   } else {
+      popUpDiv.style.display = "flex";
+      bigImage.style.cursor = "no-drop";
+      bigImage.style.pointerEvents = "none";
+   }
 });
 
 closeIcon.addEventListener("click", () => {
@@ -80,32 +85,32 @@ closeIcon.addEventListener("click", () => {
    bigImage.style.pointerEvents = "all";
 });
 
-let currentImage = 0;
-
-function noDrop() {
-   for (let i = 0; i < popUpImages.length; i++) {
-      if (popUpImages[i].classList.contains("active")) {
-         if (parseInt(popUpImages[i].dataset.index) === 0) {
-            previousIcon.style.cursor = "no-drop";
-            previousIcon.style.pointerEvents = "none";
-            nextIcon.style.cursor = "pointer";
-            nextIcon.style.pointerEvents = "all";
+function noDrop(images, previous, next) {
+   for (let i = 0; i < images.length; i++) {
+      if (images[i].classList.contains("active")) {
+         if (parseInt(images[i].dataset.index) === 0) {
+            previous.style.cursor = "no-drop";
+            previous.style.pointerEvents = "none";
+            next.style.cursor = "pointer";
+            next.style.pointerEvents = "all";
          } else if (parseInt(popUpImages[i].dataset.index) === popUpImages.length - 1) {
-            nextIcon.style.cursor = "no-drop";
-            nextIcon.style.pointerEvents = "none";
-            previousIcon.style.cursor = "pointer";
-            previousIcon.style.pointerEvents = "all";
+            next.style.cursor = "no-drop";
+            next.style.pointerEvents = "none";
+            previous.style.cursor = "pointer";
+            previous.style.pointerEvents = "all";
          } else {
-            nextIcon.style.cursor = "pointer";
-            nextIcon.style.pointerEvents = "all";
-            previousIcon.style.cursor = "pointer";
-            previousIcon.style.pointerEvents = "all";
+            next.style.cursor = "pointer";
+            next.style.pointerEvents = "all";
+            previous.style.cursor = "pointer";
+            previous.style.pointerEvents = "all";
          }
       }
    }
 }
 
-noDrop();
+noDrop(popUpImages, previousIcon, nextIcon);
+
+let currentImage = 0;
 
 function theChecker() {
    for (let i = 0; i < popUpImages.length; i++) {
@@ -136,7 +141,7 @@ nextIcon.addEventListener("click", () => {
    popUpSmallImages[currentImage + 1].classList.add("active");
 
    theChecker();
-   noDrop();
+   noDrop(popUpImages, previousIcon, nextIcon);
 });
 
 previousIcon.addEventListener("click", () => {
@@ -153,13 +158,17 @@ previousIcon.addEventListener("click", () => {
    popUpImages[currentImage - 1].classList.add("active");
    popUpSmallImages[currentImage - 1].classList.add("active");
    theChecker();
-   noDrop();
+   noDrop(popUpImages, previousIcon, nextIcon);
 });
 
 //responsive
 const iconCloseSideBar = document.querySelector(".close-menu");
 const iconMenuSideBar = document.querySelector(".menu");
 const sideBar = document.querySelector(".sidebar");
+const iconPreviousMobile = document.querySelector(".previous-mobile");
+const iconNextMobile = document.querySelector(".next-mobile");
+const bigImages = Array.from(document.querySelectorAll(".big-images > img"));
+console.log(bigImages);
 
 iconMenuSideBar.addEventListener("click", () => {
    sideBar.style.left = "0";
@@ -167,4 +176,43 @@ iconMenuSideBar.addEventListener("click", () => {
 
 iconCloseSideBar.addEventListener("click", () => {
    sideBar.style.left = "-15rem";
+});
+noDrop(bigImages, iconPreviousMobile, iconNextMobile);
+
+let currentImageMobile = 0;
+
+function theCheckerMobile() {
+   for (let i = 0; i < bigImages.length; i++) {
+      if (bigImages[i].classList.contains("active")) {
+         if (i === 0) {
+            currentImageMobile = 0;
+         } else if (i === bigImages.length - 1) {
+            currentImageMobile = bigImages.length - 1;
+         } else {
+            currentImageMobile = parseInt(bigImages[i].dataset.index);
+         }
+      }
+   }
+}
+
+iconPreviousMobile.addEventListener("click", () => {
+   bigImages.forEach((bigImage) => {
+      if (bigImage.classList.contains("active")) {
+         bigImage.classList.remove("active");
+      }
+   });
+   bigImages[currentImageMobile - 1].classList.add("active");
+   theCheckerMobile();
+   noDrop(bigImages, iconPreviousMobile, iconNextMobile);
+});
+
+iconNextMobile.addEventListener("click", () => {
+   bigImages.forEach((bigImage) => {
+      if (bigImage.classList.contains("active")) {
+         bigImage.classList.remove("active");
+      }
+   });
+   bigImages[currentImageMobile + 1].classList.add("active");
+   theCheckerMobile();
+   noDrop(bigImages, iconPreviousMobile, iconNextMobile);
 });
